@@ -1,0 +1,53 @@
+{
+  "id": "token-action-hud-pirateborg",
+  "title": "Token Action HUD Pirate Borg",
+  "description": "Token Action HUD is a repositionable HUD of actions for a selected token",
+  "authors": [
+    {
+      "name": "ashendar",
+      "url": "https://drakkarson.com/",
+      "discord": "drakkarson"
+    }
+  ],
+  "url": "https://github.com/adracea/token-action-hud-pirateborg",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "11.315"
+  },
+  "esmodules": [
+    "scripts/init.js"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json",
+      "flags": {}
+    }
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "pirateborg",
+        "type": "system",
+        "compatibility": [
+          null
+        ]
+      }
+    ],
+    "requires": [
+      {
+        "id": "token-action-hud-core",
+        "type": "module",
+        "compatibility": [
+          null
+        ]
+      }
+    ],
+    "flags": {
+      "optional": []
+    }
+  },
+  "readme": "https://github.com/adracea/token-action-hud-pirateborg"
+}

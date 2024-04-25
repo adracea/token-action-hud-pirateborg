@@ -57,19 +57,26 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          */
         async #handleAction(event, actor, token, actionTypeId, actionId) {
             const options = {};
-            console.log(actionTypeId,actionId)
             switch (actionTypeId) {
 
                 case 'weapons':
                     await this.#handleWeaponAction(event, actor, actionId);
                     break;
 
+                case 'ship':
+                    await this.#handleShipAction(event, actor, actionId);
+                    break;
+
                 case 'items':
-                    await this.#handleItemAction(event,actor,actionId);
+                    await this.#handleItemAction(event, actor, actionId);
                     break;
 
                 case 'spells':
                     await this.#handleSpellAction(event, actor, actionId);
+                    break;
+
+                case 'shanties':
+                    await this.#handleSongAction(event, actor, actionId);
                     break;
 
                 case 'ability':
@@ -103,6 +110,48 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
         }
         /**
+         * Handle Ship action
+         * @private
+         * @param {object} event    The event
+         * @param {object} actor    The actor
+         * @param {string} actionId The action id
+         */
+        async #handleShipAction(event, actor, actionId) {
+            let action = actionId.split("pcaction");
+            let isPCAction = false;
+            if (action.length > 1) { isPCAction = true; }
+            switch (action[0]) {
+                case "broadsides":
+                    await game.pirateborg.api.actions.shipBroadsidesAction(actor, isPCAction);
+                    break;
+                case "small-arms":
+                    await game.pirateborg.api.actions.shipSmallArmsAction(actor, isPCAction);
+                    break;
+                case "ram":
+                    await game.pirateborg.api.actions.shipRamAction(actor);
+                    break;
+                case "full-sail":
+                    await game.pirateborg.api.actions.shipFullSailAction(actor, isPCAction);
+                    break;
+                case "come-about":
+                    await game.pirateborg.api.actions.shipComeAboutAction(actor, isPCAction);
+                    break;
+                case "drop-anchor":
+                    await game.pirateborg.api.actions.shipDropAnchorAction(actor);
+                    break;
+                case "weigh-anchor":
+                    await game.pirateborg.api.actions.shipWeighAnchorAction(actor);
+                    break;
+                case "repair":
+                    await game.pirateborg.api.actions.shipRepairAction(actor, isPCAction);
+                    break;
+                case "boarding-party":
+                    await game.pirateborg.api.actions.shipBoardingPartyAction(actor);
+                    break;
+            }
+
+        }
+        /**
          * Handle Item action
          * @private
          * @param {object} event    The event
@@ -110,8 +159,17 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @param {string} actionId The action id
          */
         async #handleItemAction(event, actor, actionId) {
-            console.log(actionId)
-            await game.pirateborg.api.macros.rollItemMacro(actor.id,actionId);
+            await game.pirateborg.api.macros.rollItemMacro(actor.id, actionId);
+        }
+        /**
+         * Handle Shanties action
+         * @private
+         * @param {object} event    The event
+         * @param {object} actor    The actor
+         * @param {string} actionId The action id
+         */
+        async #handleSongAction(event, actor, actionId) {
+            await game.pirateborg.api.actions.shipInvokeShantyAction(actor, actor.items.filter(i => i.id == actionId)[0]);
         }
 
         /**
@@ -141,7 +199,19 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @param {string} actionId The action id
          */
         async #handleAbilityAction(event, actor, actionId) {
-            await game.pirateborg.api.actions.actorRollAbilityAction(actor,actionId)
+            if (actor.type == "vehicle") {
+                if (actionId == "agility") {
+
+                    await game.pirateborg.api.actions.shipRollAgilityAction(actor);
+                } else if (actionId == "skill") {
+                    await game.pirateborg.api.actions.shipRollSkillAction(actor);
+                }
+                else {
+                    await game.pirateborg.api.actions.actorRollAbilityAction(actor, actionId)
+                }
+            } else {
+                await game.pirateborg.api.actions.actorRollAbilityAction(actor, actionId)
+            }
         }
 
         /**

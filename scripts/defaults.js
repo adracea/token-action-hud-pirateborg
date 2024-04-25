@@ -36,6 +36,16 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 ]
             },
             {
+                nestId: 'ship',
+                id: 'ship',
+                name: "Ship Actions",
+                settings: {
+                    style: 'list'
+                },
+                groups: [
+                ]
+            },
+            {
                 nestId: 'spells',
                 id: 'spells',
                 name: coreModule.api.Utils.i18n('PB.ItemTypeInvokable'),
@@ -77,10 +87,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             },
         ],
         groups: [
-            {id: 'items_items', name: "Items", type: 'system'},
-            {id: 'abilities_abilities', name: coreModule.api.Utils.i18n('PB.Test'), type: 'system'},
-            {id: 'weapons_weapons', name: coreModule.api.Utils.i18n('PB.ItemTypeWeaponPlural'), type: 'system'},
-            {id: 'utility_utility', name: coreModule.api.Utils.i18n('tokenActionHud.utility'), type: 'system'}
+            { id: 'items_items', name: "Items", type: 'system' },
+            { id: 'abilities_abilities', name: coreModule.api.Utils.i18n('PB.Test'), type: 'system' },
+            { id: 'weapons_weapons', name: coreModule.api.Utils.i18n('PB.ItemTypeWeaponPlural'), type: 'system' },
+            { id: 'utility_utility', name: coreModule.api.Utils.i18n('tokenActionHud.utility'), type: 'system' }
         ]
     }
 })

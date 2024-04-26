@@ -121,7 +121,17 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       this.addActions(abilityActions, { id: "abilities", type: "system" });
       if (!this.actor.type.includes("vehicle")) {
         for (let a in weapons) {
-          const name = game.i18n.localize(weapons[a].name);
+          let name = game.i18n.localize(weapons[a].name);
+          if (weapons[a].system.loadingCount > 0) {
+            name =
+              "Reload " +
+              name +
+              " (" +
+              (weapons[a].system.reloadTime - weapons[a].system.loadingCount) +
+              "/" +
+              weapons[a].system.reloadTime +
+              ")";
+          }
           const weaponEncodedValue = ["weapons", weapons[a].id].join("|");
           weaponActions.push({
             name: name,

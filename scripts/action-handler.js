@@ -101,6 +101,13 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         itemActions.push({
           name: name,
           img: items[a].img,
+          info1: {
+            text:
+              "(" +
+              items[a].system.quantity +
+              ")" +
+              (items[a].system.uses ? " Uses: " + items[a].system.uses : ""),
+          },
           id: a,
           encodedValue: itemEncodedValue,
         });
@@ -145,7 +152,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
               )
               .forEach((k) => (countAmmo += k.system.quantity));
             info2 = { text: "Shots Remainig: " + countAmmo };
-            console.log(info2);
           }
           const weaponEncodedValue = ["weapons", weapons[a].id].join("|");
           weaponActions.push({
@@ -311,6 +317,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           let songAction = {
             name: songs[i].name,
             img: songs[i].img,
+            info1: {
+              text:
+                this.actor.system.attributes.shanties.value +
+                "/" +
+                this.actor.system.attributes.shanties.max,
+            },
             id: i,
             encodedValue: ["shanties", songs[i].id].join("|"),
           };
@@ -340,6 +352,26 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       for (let a in spells) {
         const groupId = spells[a].system.invokableType;
         const groupName = spells[a].system.invokableType;
+        let info2 = {};
+        if (spells[a].isExtraResource) {
+          info2 = {
+            text:
+              "(" +
+              this.actor.system.attributes.extraResource.value +
+              "/" +
+              this.actor.system.attributes.extraResource.max +
+              ")",
+          };
+        } else if (spells[a].isArcaneRitual) {
+          info2 = {
+            text:
+              "(" +
+              this.actor.system.attributes.rituals.value +
+              "/" +
+              this.actor.system.attributes.rituals.max +
+              ")",
+          };
+        }
         const spellGroupData = {
           id: groupId,
           type: "system",
@@ -357,6 +389,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         let spellAction = {
           name: name,
           img: spells[a].img,
+          info2: info2,
           id: a,
           encodedValue: spellEncodedValue,
         };

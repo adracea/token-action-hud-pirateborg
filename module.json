@@ -12,8 +12,8 @@
   "url": "https://github.com/adracea/token-action-hud-pirateborg",
   "version": "1.0.0",
   "compatibility": {
-    "minimum": "10",
-    "verified": "11.315"
+    "minimum": "12",
+    "verified": "12"
   },
   "esmodules": [
     "scripts/init.js"
@@ -30,10 +30,7 @@
     "systems": [
       {
         "id": "pirateborg",
-        "type": "system",
-        "compatibility": [
-          null
-        ]
+        "type": "system"
       }
     ],
     "requires": [
@@ -41,7 +38,10 @@
         "id": "token-action-hud-core",
         "type": "module",
         "compatibility": [
-          null
+          {
+            "minimum": "2.0.2",
+            "verified": "2"
+          }
         ]
       }
     ],

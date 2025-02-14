@@ -25,14 +25,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * @param {array} groupIds
      */
     async buildSystemActions(groupIds) {
-      this.updateGroup({
-        id: "abilities",
-        settings: { style: "list", showTitle: false },
-      });
-      this.updateGroup({
-        id: "abilities_abilities",
-        settings: { style: "list" },
-      });
+      // this.updateGroup({
+      //   id: "abilities",
+      //   settings: { style: "list", showTitle: false },
+      // });
+      // this.updateGroup({
+      //   id: "abilities_abilities",
+      //   settings: { style: "list" },
+      // });
 
       if (this.actor) {
         if (this.actor.type == "creature") {
@@ -218,7 +218,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         name: "Ship Actions",
         type: "custom",
       };
-      this.updateGroup(updateData);
+      // this.updateGroup(updateData);
       const spellGroupData = {
         id: "ship",
         type: "system",
@@ -336,7 +336,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         name: spellType,
         type: "custom",
       };
-      this.updateGroup(updateData);
+      // this.updateGroup(updateData);
       const spellGroupData = {
         id: "spells",
         type: "system",

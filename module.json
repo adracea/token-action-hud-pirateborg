@@ -39,8 +39,8 @@
         "type": "module",
         "compatibility": [
           {
-            "minimum": "2.0.2",
-            "verified": "2"
+            "minimum": "2.0",
+            "verified": "2.1.0"
           }
         ]
       }
